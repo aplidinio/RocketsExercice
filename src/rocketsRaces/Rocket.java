@@ -1,13 +1,14 @@
 package rocketsRaces;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Rocket extends Thread implements Runnable{
 	
 	private String codeRocket;
 	private ArrayList <Thruster> thrusters= new ArrayList<Thruster>();
-	//private Thruster engine;
-	//private Rocket myRocket;
+	private Lock shutDown = new ReentrantLock();
 	
 	public Rocket(String codeRocket, ArrayList<Thruster> thrusters) {
 		
@@ -44,6 +45,8 @@ public class Rocket extends Thread implements Runnable{
 	
 	public void run() {
 		
+		shutDown.lock();
+		
 		for(int i=0; i<thrusters.size(); i++) {
 			
 			thrusters.get(i).start();
@@ -51,11 +54,10 @@ public class Rocket extends Thread implements Runnable{
 
 		
 			
-			for(int j=0; j<thrusters.size(); j++) {
+			/*for(int j=0; j<thrusters.size(); j++) {
 				
-				//thrusters.get(j).setPowerIncrement(i);
 				thrusters.get(j).getPowerIncrement();
-				System.out.println(getThrusters().toString());
+				System.out.println("**************");
 				try {
 					sleep(400);
 				} catch (InterruptedException e) {
@@ -65,7 +67,8 @@ public class Rocket extends Thread implements Runnable{
 
 			
 
-		}
+		}*/
+		shutDown.unlock();
 	}
 	
 	

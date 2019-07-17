@@ -43,6 +43,7 @@ public class MainRocket {
 		System.out.println("Rocket " + rocket2.getCodeRocket() + " has " + rocket2.getThrusters().size() + " trusters. \n" + "Power: " + rocket2.getThrusters().toString());
 
 		rocket1.start();
+		//rocket2.start();
 	}
 
 }

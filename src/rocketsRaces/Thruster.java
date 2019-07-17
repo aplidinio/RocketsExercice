@@ -1,12 +1,15 @@
 package rocketsRaces;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class Thruster extends Thread implements Runnable{
 	
 	private int identification;
 	private int maxPower;
 	private int powerIncrement;
 	private int currentPower;
-	//private Thruster engine;
+	private Lock shutDown = new ReentrantLock();
 	
 	public Thruster(int identification, int maxPower, int powerIncrement) {
 		
@@ -47,13 +50,22 @@ public class Thruster extends Thread implements Runnable{
 				+ powerIncrement + "]";*/
 		return "  " + identification + ":  " + currentPower;
 	}
+	
+	/*public Thruster givePower() {
+		
+		return this.setPowerIncrement(currentPower);
+	}*/
 		
 	public void run() {
 		
-		for (int i=0; i<=100;i+=10) {
+		shutDown.lock();
+		
+		try {
+		
+		for (int i=0; i<=10;i++) {
 			
 		
-		currentPower+=i;
+		currentPower+=10;
 		
 		if (currentPower>=this.getMaxPower()) {
 			currentPower=this.getMaxPower();
@@ -62,12 +74,16 @@ public class Thruster extends Thread implements Runnable{
 		}
 		
 		try {
-			sleep(40);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		toString();
+		System.out.print(toString());
+		//givePower();
+		}
+		} finally {
+			shutDown.unlock();
 		}
 		
 	}
