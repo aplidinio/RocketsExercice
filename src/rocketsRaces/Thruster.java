@@ -1,22 +1,26 @@
 package rocketsRaces;
 
-public class Thruster {
+public class Thruster extends Thread implements Runnable{
 	
-	private int power;
 	private int identification;
+	private int maxPower;
+	private int powerIncrement;
+	private int currentPower;
+	//private Thruster engine;
 	
-	public Thruster(int identification, int power) {
+	public Thruster(int identification, int maxPower, int powerIncrement) {
 		
-		this.power=power;
+		this.maxPower=maxPower;
 		this.identification=identification;
+		this.powerIncrement=powerIncrement;
+	}
+	
+	public int getMaxPower() {
+		return maxPower;
 	}
 
-	public int getPower() {
-		return power;
-	}
-
-	public void setPower(int power) {
-		this.power = power;
+	public void setMaxPower(int maxPower) {
+		this.maxPower = maxPower;
 	}
 
 	public int getIdentification() {
@@ -27,22 +31,44 @@ public class Thruster {
 		this.identification = identification;
 	}
 
+	public int getPowerIncrement() {
+		return powerIncrement;
+	}
+
+	public void setPowerIncrement(int powerIncrement) {
+		this.powerIncrement = powerIncrement;
+
+	}
+
+	
 	@Override
 	public String toString() {
-		//return "Thruster "+this.getIdentification()+": [power= " + power + "   identification= " + identification + "] \n";
-		return " " +power;
+		/*return "Thruster [maxPower=" + maxPower + ", identification=" + identification + ", powerIncrement="
+				+ powerIncrement + "]";*/
+		return "  " + identification + ":  " + currentPower;
 	}
-	
-	public int accelerate(Thruster thruster, int powerIncrement) {
 		
-		power+=powerIncrement;
+	public void run() {
 		
-		if (power>=thruster.getPower()) {
-			power=thruster.getPower();
-		} else if (power<=0) {
-			power=0;
+		for (int i=0; i<=100;i+=10) {
+			
+		
+		currentPower+=i;
+		
+		if (currentPower>=this.getMaxPower()) {
+			currentPower=this.getMaxPower();
+		} else if (currentPower<=0) {
+			currentPower=0;
 		}
-		return power;
+		
+		try {
+			sleep(40);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		toString();
+		}
 		
 	}
 

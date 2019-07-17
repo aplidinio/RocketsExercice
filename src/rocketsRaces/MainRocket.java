@@ -8,21 +8,21 @@ public class MainRocket {
 		// TODO Auto-generated method stub
 		
 		ArrayList <Thruster> thrustersRocket1=new ArrayList<Thruster>();
-		Thruster t1R1= new Thruster (1,0);
-		Thruster t2R1= new Thruster (2,0);
-		Thruster t3R1= new Thruster (3,0);
+		Thruster t1R1= new Thruster (1,10, 0);
+		Thruster t2R1= new Thruster (2,30, 0);
+		Thruster t3R1= new Thruster (3,80, 0);
 
 		thrustersRocket1.add(t1R1);
 		thrustersRocket1.add(t2R1);
 		thrustersRocket1.add(t3R1);
 		
 		ArrayList <Thruster> thrustersRocket2=new ArrayList<Thruster>();
-		Thruster t1R2= new Thruster (1,0);
-		Thruster t2R2= new Thruster (2,0);
-		Thruster t3R2= new Thruster (3,0);
-		Thruster t4R2= new Thruster (4,0);
-		Thruster t5R2= new Thruster (5,0);
-		Thruster t6R2= new Thruster (6,0);
+		Thruster t1R2= new Thruster (1,30, 0);
+		Thruster t2R2= new Thruster (2,40, 0);
+		Thruster t3R2= new Thruster (3,50, 0);
+		Thruster t4R2= new Thruster (4,50, 0);
+		Thruster t5R2= new Thruster (5,30, 0);
+		Thruster t6R2= new Thruster (6,10, 0);
 
 		thrustersRocket2.add(t1R2);
 		thrustersRocket2.add(t2R2);
@@ -42,7 +42,7 @@ public class MainRocket {
 		System.out.println("");
 		System.out.println("Rocket " + rocket2.getCodeRocket() + " has " + rocket2.getThrusters().size() + " trusters. \n" + "Power: " + rocket2.getThrusters().toString());
 
-
+		rocket1.start();
 	}
 
 }
