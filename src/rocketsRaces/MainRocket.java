@@ -34,8 +34,11 @@ public class MainRocket {
 		thrustersRocket2.add(t5R2);
 		thrustersRocket2.add(t6R2);
 		
-		Rocket rocket1 = new Rocket ("32WESSDS", thrustersRocket1, 0);
-		Rocket rocket2 = new Rocket ("LDSFJA32", thrustersRocket2, 0);
+		int [] speed1= {3,-5,15};
+		int [] speed2= {3,7,15};
+		
+		Rocket rocket1 = new Rocket ("32WESSDS", thrustersRocket1, speed1);
+		Rocket rocket2 = new Rocket ("LDSFJA32", thrustersRocket2, speed2);
 		
 		System.out.println("Rocket " + rocket1.getCodeRocket() + " has " + rocket1.getThrusters().size() + " trusters. \n");
 		System.out.println("");
