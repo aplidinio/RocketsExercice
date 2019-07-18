@@ -1,18 +1,20 @@
 package rocketsRaces;
 
-public class Thruster extends Thread implements Runnable{
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+public class Thruster extends Thread {
 	
 	private int identification;
 	private int maxPower;
-	private int powerIncrement;
+	private int rocket;
 	private int currentPower;
-	//private Thruster engine;
 	
-	public Thruster(int identification, int maxPower, int powerIncrement) {
+	public Thruster(int identification, int maxPower, int rocket) {
 		
 		this.maxPower=maxPower;
 		this.identification=identification;
-		this.powerIncrement=powerIncrement;
+		this.rocket=rocket;
 	}
 	
 	public int getMaxPower() {
@@ -31,43 +33,66 @@ public class Thruster extends Thread implements Runnable{
 		this.identification = identification;
 	}
 
-	public int getPowerIncrement() {
-		return powerIncrement;
+	public int getRocket() {
+		return rocket;
 	}
 
-	public void setPowerIncrement(int powerIncrement) {
-		this.powerIncrement = powerIncrement;
+	public void setRocket(int rocket) {
+		this.rocket = rocket;
 
 	}
-
+	
+	public int getCurrentPower() {
+		return currentPower;
+	}
 	
 	@Override
 	public String toString() {
-		/*return "Thruster [maxPower=" + maxPower + ", identification=" + identification + ", powerIncrement="
-				+ powerIncrement + "]";*/
-		return "  " + identification + ":  " + currentPower;
+		
+		return "Rocket " + rocket + " Thruster " + identification + " -->  Current Power: " + currentPower;
 	}
 		
 	public void run() {
 		
-		for (int i=0; i<=100;i+=10) {
-			
-		
-		currentPower+=i;
-		
-		if (currentPower>=this.getMaxPower()) {
-			currentPower=this.getMaxPower();
-		} else if (currentPower<=0) {
-			currentPower=0;
-		}
+		//shutDown.lock();
 		
 		try {
-			sleep(40);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+			for (int i=0; i<=100; i+=10) {
+			
+				if(this.getMaxPower()>=i) 
+					currentPower=i;
+				
+			try {
+				sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+					
+			System.out.println(toString());
+			getCurrentPower();
+				
 		}
-		toString();
+			for (int i=100; i>=0; i-=10) {
+						
+				if(this.getMaxPower()>=i) 
+					currentPower=i;
+		
+			try {
+				sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				
+			System.out.println(toString());
+			getCurrentPower();	
+			}
+			
+		}finally {
+			
+			//shutDown.unlock();
 		}
 		
 	}
